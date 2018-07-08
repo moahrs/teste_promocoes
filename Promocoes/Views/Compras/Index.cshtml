@@ -46,8 +46,9 @@
 <h2>Conteúdo do Carrinho</h2>
 
 <div id="listaCarrinho"></div>  
+<img src="~/Images/img_checkout.png" onclick='return checkOut();' />
 
-<script>
+<script type="text/javascript">
     function addCarrinho(id)
     {
         var PDDID = "Qtd" + id;
@@ -69,11 +70,18 @@
             idProd: id
         },
         function (data, status, xhr) {
-            if (data.Success) {
-                $("#listaCarrinho").html(data);
-            } else {
-                alert("Ocorreu um erro ao retirar o produto do carrinho. Contate o Suporte.\nErro: " + data.Erro);
-            }
+            $("#listaCarrinho").html(data);
+        });
+    }
+
+    function checkOut()
+    {
+        $.post('@Url.Action("CheckOut", "Compras")',
+        {
+            idProd: id
+        },
+        function (data, status, xhr) {
+            $("#listaCarrinho").html(data);
         });
     }
 </script>

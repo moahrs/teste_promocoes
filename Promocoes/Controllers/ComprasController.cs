@@ -36,12 +36,10 @@ namespace Promocoes.MVC.Controllers
 
         public ActionResult CarrinhoAdd(int idProd, int qtdProd)
         {
-            int qtdAnterior;
             meuCarrinho meuCarAtu = new meuCarrinho();
             var dadosProduto = _produtoApp.GetById(idProd);
             List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
-            ComprasCarrinhoViewModel partialList = new ComprasCarrinhoViewModel();
-
+            
             if (!dictCarrinho.ContainsKey(idProd))
             {
                 meuCarAtu.prodID = idProd;
@@ -54,12 +52,12 @@ namespace Promocoes.MVC.Controllers
             }
             else
             {
-                qtdAnterior = dictCarrinho[idProd].qtdProd + qtdProd;
-                dictCarrinho[idProd].qtdProd = qtdAnterior;
+                dictCarrinho[idProd].qtdProd = qtdProd;
             }
 
             foreach (var item in dictCarrinho)
             {
+                ComprasCarrinhoViewModel partialList = new ComprasCarrinhoViewModel();
                 partialList.prodID = item.Value.prodID;
                 partialList.codProd = item.Value.codProd;
                 partialList.descProd = item.Value.descProd;
@@ -74,12 +72,32 @@ namespace Promocoes.MVC.Controllers
 
         public ActionResult CarrinhoDel(int idProd)
         {
+            List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
+
             if (dictCarrinho.ContainsKey(idProd))
             {
                 dictCarrinho.Remove(idProd);
             }
 
-            return PartialView("ComprasCarrinho", dictCarrinho);
+            foreach (var item in dictCarrinho)
+            {
+                ComprasCarrinhoViewModel partialList = new ComprasCarrinhoViewModel();
+                partialList.prodID = item.Value.prodID;
+                partialList.codProd = item.Value.codProd;
+                partialList.descProd = item.Value.descProd;
+                partialList.precoProd = item.Value.precoProd;
+                partialList.qtdProd = item.Value.qtdProd;
+
+                carrinhoList.Add(partialList);
+            }
+
+            return PartialView("ComprasCarrinho", carrinhoList);
+        }
+
+        public ActionResult CheckOut()
+        {
+            List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
+            return PartialView("ComprasCarrinho", carrinhoList);
         }
     }
 }

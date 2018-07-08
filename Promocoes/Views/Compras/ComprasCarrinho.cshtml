@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<Promocoes.MVC.ViewModels.ComprasCarrinhoViewModel>
 
-<table cellpadding="1" cellspacing="1" border="1">
+<table class="table">
     <tr>
         <th>Código</th>
         <th>Descrição</th>
@@ -14,6 +14,9 @@
             <td>@item.descProd</td>
             <td>@item.precoProd</td>
             <td>@item.qtdProd</td>
+            <td>
+                <img src="~/Images/img_xis.png" onclick='return delCarrinho(@item.prodID);' />
+            </td>
         </tr>
     }
 </table>  
