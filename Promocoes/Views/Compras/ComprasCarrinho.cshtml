@@ -1,0 +1,19 @@
+﻿@model IEnumerable<Promocoes.MVC.ViewModels.ComprasCarrinhoViewModel>
+
+<table cellpadding="1" cellspacing="1" border="1">
+    <tr>
+        <th>Código</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Qtd</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.codProd</td>
+            <td>@item.descProd</td>
+            <td>@item.precoProd</td>
+            <td>@item.qtdProd</td>
+        </tr>
+    }
+</table>  

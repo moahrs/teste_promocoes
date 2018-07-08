@@ -1,0 +1,79 @@
+﻿@model IEnumerable<Promocoes.MVC.ViewModels.ComprasViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Produtos a Comprar</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Codigo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Preco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </th>
+    </tr>
+
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Codigo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Preco)
+            </td>
+            <td>
+                @Html.TextBoxFor(modelItem => item.Quantidade, new { id = "Qtd" + @item.ProdutoID })
+            </td>
+            <td>
+                <img src="~/Images/img_carrinho.png" onclick='return addCarrinho(@item.ProdutoID);' />
+            </td>
+        </tr>
+    }
+</table>
+
+<h2>Conteúdo do Carrinho</h2>
+
+<div id="listaCarrinho"></div>  
+
+<script>
+    function addCarrinho(id)
+    {
+        var PDDID = "Qtd" + id;
+        var PDDQ = $('#' + PDDID);
+
+        $.post('@Url.Action("CarrinhoAdd", "Compras")',
+        {
+            idProd: id,
+            qtdProd: PDDQ.val()
+        },
+        function (data, status, xhr) {
+            $("#listaCarrinho").html(data);
+        });
+    }
+
+    function delCarrinho(id) {
+        $.post('@Url.Action("CarrinhoDel", "Compras")',
+        {
+            idProd: id
+        },
+        function (data, status, xhr) {
+            if (data.Success) {
+                $("#listaCarrinho").html(data);
+            } else {
+                alert("Ocorreu um erro ao retirar o produto do carrinho. Contate o Suporte.\nErro: " + data.Erro);
+            }
+        });
+    }
+</script>
