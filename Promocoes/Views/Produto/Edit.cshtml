@@ -46,10 +46,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.PromocaoID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("PromocaoID", String.Empty)
+                @Html.DropDownListFor(model => model.PromocaoID, new SelectList(
+                    new List<object>{
+                            new { value = 0 , text = "Nenhuma"  },
+                            new { value = 1 , text = "Pague 1 e Leve 2"  },
+                            new { value = 2 , text = "3 por 10 reais"  }
+                        },
+                        "value",
+                        "text",
+                        0))
                 @Html.ValidationMessageFor(model => model.PromocaoID, "", new { @class = "text-danger" })
                 <img id="Adicionar" src="~/Images/img_folha.png" onclick="ShowPromoPopup(@Model.ProdutoID)" />
-            </div>  
+            </div>
         </div>
 
         <div class="form-group">
