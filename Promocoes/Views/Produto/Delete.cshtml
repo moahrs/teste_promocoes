@@ -40,15 +40,7 @@
         </dt>
 
         <dd>
-            @Html.DropDownListFor(model => model.PromocaoID, new SelectList(
-                    new List<object>{
-                            new { value = 0 , text = "Nenhuma"  },
-                            new { value = 1 , text = "Pague 1 e Leve 2"  },
-                            new { value = 2 , text = "3 por 10 reais"  }
-                        },
-                        "value",
-                        "text",
-                        0), htmlAttributes: new { @disabled = "disabled" })
+            @Html.DropDownListFor(model => model.PromocaoID, Model.TipoListaPromocoes, htmlAttributes: new { @disabled = "disabled" })
         </dd>
 
     </dl>
