@@ -9,6 +9,6 @@ namespace Promocoes.Domain
         public String Codigo { get; set; }
         public string Descricao { get; set; }
         public decimal Preco { get; set; }
-
+        public int PromocaoID { get; set; }
     }
 }

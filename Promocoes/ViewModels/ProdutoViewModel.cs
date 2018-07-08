@@ -1,6 +1,9 @@
-﻿using Promocoes.Domain;
+﻿using AutoMapper;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Promocoes.MVC.ViewModels
 {
@@ -27,8 +30,7 @@ namespace Promocoes.MVC.ViewModels
         [DisplayName("Preço de Venda")]
         public decimal Preco { get; set; }
 
+        [DisplayName("Promoção")]
         public int PromocaoID { get; set; }
-
-        public virtual ProdutoPromocao ProdutoPromocao { get; set; }
     }
 }

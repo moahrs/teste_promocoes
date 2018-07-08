@@ -71,15 +71,12 @@ namespace Promocoes.MVC.App_Start
         {
             kernel.Bind(typeof(IAppServiceBase<>)).To(typeof(AppServiceBase<>));
             kernel.Bind<IProdutoAppService>().To<ProdutoAppService>();
-            kernel.Bind<IProdutoPromocaoAppService>().To<ProdutoPromocaoAppService>();
 
             kernel.Bind(typeof(IServiceBase<>)).To(typeof(ServiceBase<>));
             kernel.Bind<IProdutoService>().To<ProdutoService>();
-            kernel.Bind<IProdutoPromocaoService>().To<ProdutoPromocaoService>();
 
             kernel.Bind(typeof(IRepositoryBase<>)).To(typeof(RepositoryBase<>));
             kernel.Bind<IProdutoRepository>().To<ProdutoRepository>();
-            kernel.Bind<IProdutoPromocaoRepository>().To<ProdutoPromocaoRepository>();
         }
     }
 }

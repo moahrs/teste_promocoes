@@ -5,5 +5,6 @@ namespace Promocoes.Domain.Interfaces.Services
     public interface IProdutoService : IServiceBase<Produto>
     {
         IEnumerable<Produto> BuscarPorDesc(string descProd);
+        decimal DevolveValorCalculado(int idProd, int qtdProd);
     }
 }

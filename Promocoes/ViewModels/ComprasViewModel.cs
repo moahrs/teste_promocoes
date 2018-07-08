@@ -20,11 +20,9 @@ namespace Promocoes.MVC.ViewModels
         public decimal Preco { get; set; }
 
         [DisplayName("Promocao")]
-        public int PromocaoID { get; set; }
+        public string CodPromocao { get; set; }
 
         [DisplayName("Quantidade")]
         public int Quantidade { get; set; }
-
-        public virtual ProdutoPromocao ProdutoPromocao { get; set; }
     }
 }

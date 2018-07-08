@@ -219,7 +219,6 @@
     </Compile>
     <Compile Include="ViewModels\ComprasCarrinhoViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
-    <Compile Include="ViewModels\ProdutoPromocaoViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -322,7 +321,6 @@
     <Content Include="Scripts\popper.js.map" />
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
-    <Content Include="Views\Produto\CadPromo.cshtml" />
     <Content Include="Views\Compras\Index.cshtml" />
     <Content Include="Views\Compras\ComprasCarrinho.cshtml" />
   </ItemGroup>

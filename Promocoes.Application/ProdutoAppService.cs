@@ -19,5 +19,10 @@ namespace Promocoes.Application
         {
             return _produtoService.BuscarPorDesc(descProd);
         }
+
+        public decimal DevolveValorCalculado(int idProd, int qtdProd)
+        {
+            return _produtoService.DevolveValorCalculado(idProd, qtdProd);
+        }
     }
 }

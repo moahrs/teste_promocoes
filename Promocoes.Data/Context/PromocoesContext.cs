@@ -12,7 +12,6 @@ namespace Promocoes.Data.Context
         {
 
         }
-        public DbSet<ProdutoPromocao> TbProdutoPromocao { get; set; }
         public DbSet<Produto> TbProduto { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -28,7 +27,6 @@ namespace Promocoes.Data.Context
                 .Configure(p => p.HasMaxLength(50));
 
             modelBuilder.Configurations.Add(new ProdutoConfiguration());
-            modelBuilder.Configurations.Add(new ProdutoPromocaoConfiguration());
         }
     }
 }
