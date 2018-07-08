@@ -217,6 +217,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\ComprasCarrinhoViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />
     <Compile Include="ViewModels\ProdutoViewModel.cs" />
@@ -323,6 +324,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Compras\Index.cshtml" />
     <Content Include="Views\Compras\ComprasCarrinho.cshtml" />
+    <Content Include="Views\Compras\Checkout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

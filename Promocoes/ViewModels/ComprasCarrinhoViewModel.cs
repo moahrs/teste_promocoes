@@ -14,11 +14,14 @@ namespace Promocoes.MVC.ViewModels
         [DisplayName("Descricao")]
         public string descProd { get; set; }
 
+        [DisplayName("Quantidade")]
+        public string qtdProd { get; set; }
+
         [DataType(DataType.Currency)]
         [DisplayName("Preço de Venda")]
         public decimal precoProd { get; set; }
 
-        [DisplayName("Quantidade")]
-        public int qtdProd { get; set; }
+        [DisplayName("Promoção")]
+        public int PromocaoID { get; set; }
     }
 }

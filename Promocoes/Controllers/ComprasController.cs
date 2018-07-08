@@ -39,20 +39,22 @@ namespace Promocoes.MVC.Controllers
             meuCarrinho meuCarAtu = new meuCarrinho();
             var dadosProduto = _produtoApp.GetById(idProd);
             List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
+            decimal totalCompras = 0;
             
             if (!dictCarrinho.ContainsKey(idProd))
             {
                 meuCarAtu.prodID = idProd;
                 meuCarAtu.codProd = dadosProduto.Codigo;
                 meuCarAtu.descProd = dadosProduto.Descricao;
-                meuCarAtu.precoProd = dadosProduto.Preco;
                 meuCarAtu.qtdProd = qtdProd;
+                meuCarAtu.precoProd = _produtoApp.DevolveValorCalculado(idProd, qtdProd);
 
                 dictCarrinho.Add(idProd, meuCarAtu);
             }
             else
             {
                 dictCarrinho[idProd].qtdProd = qtdProd;
+                dictCarrinho[idProd].precoProd = _produtoApp.DevolveValorCalculado(idProd, qtdProd);
             }
 
             foreach (var item in dictCarrinho)
@@ -61,11 +63,22 @@ namespace Promocoes.MVC.Controllers
                 partialList.prodID = item.Value.prodID;
                 partialList.codProd = item.Value.codProd;
                 partialList.descProd = item.Value.descProd;
+                partialList.qtdProd = item.Value.qtdProd.ToString();
                 partialList.precoProd = item.Value.precoProd;
-                partialList.qtdProd = item.Value.qtdProd;
+
+                totalCompras += partialList.precoProd;
 
                 carrinhoList.Add(partialList);
             }
+
+            ComprasCarrinhoViewModel partialLista = new ComprasCarrinhoViewModel();
+            partialLista.prodID = 0;
+            partialLista.codProd = "";
+            partialLista.descProd = "";
+            partialLista.qtdProd = "Total";
+            partialLista.precoProd = totalCompras;
+
+            carrinhoList.Add(partialLista);
 
             return PartialView("ComprasCarrinho", carrinhoList);
         }
@@ -73,6 +86,7 @@ namespace Promocoes.MVC.Controllers
         public ActionResult CarrinhoDel(int idProd)
         {
             List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
+            decimal totalCompras = 0;
 
             if (dictCarrinho.ContainsKey(idProd))
             {
@@ -86,18 +100,29 @@ namespace Promocoes.MVC.Controllers
                 partialList.codProd = item.Value.codProd;
                 partialList.descProd = item.Value.descProd;
                 partialList.precoProd = item.Value.precoProd;
-                partialList.qtdProd = item.Value.qtdProd;
+                partialList.qtdProd = item.Value.qtdProd.ToString();
+
+                totalCompras += partialList.precoProd;
 
                 carrinhoList.Add(partialList);
             }
 
+            ComprasCarrinhoViewModel partialLista = new ComprasCarrinhoViewModel();
+            partialLista.prodID = 0;
+            partialLista.codProd = "";
+            partialLista.descProd = "";
+            partialLista.qtdProd = "Total";
+            partialLista.precoProd = totalCompras;
+
+            carrinhoList.Add(partialLista);
+
             return PartialView("ComprasCarrinho", carrinhoList);
         }
 
-        public ActionResult CheckOut()
+        public ActionResult Checkout()
         {
-            List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
-            return PartialView("ComprasCarrinho", carrinhoList);
+            var checkoutView = new CheckoutViewModel();
+            return PartialView(checkoutView);
         }
     }
 }

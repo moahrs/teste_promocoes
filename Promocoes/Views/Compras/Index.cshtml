@@ -46,7 +46,7 @@
 <h2>Conteúdo do Carrinho</h2>
 
 <div id="listaCarrinho"></div>  
-<img src="~/Images/img_checkout.png" onclick='return checkOut();' />
+<img src="~/Images/img_checkout.png" onclick='return ShowCheckoutPopup();' />
 
 <script type="text/javascript">
     function addCarrinho(id)
@@ -74,14 +74,19 @@
         });
     }
 
-    function checkOut()
-    {
-        $.post('@Url.Action("CheckOut", "Compras")',
-        {
-            idProd: id
-        },
-        function (data, status, xhr) {
-            $("#listaCarrinho").html(data);
+    function ShowCheckoutPopup() {
+        var urlDest = "@(Url.Action("Checkout", "Compras"))";
+
+        $.ajax({
+            type: "GET",
+            url: urlDest,
+            data: {
+            },
+            success: function (data) {
+                $('#popupCheckoutForm').html(data)
+            }
         });
     }
 </script>
+
+<div id="popupCheckoutForm"></div>
