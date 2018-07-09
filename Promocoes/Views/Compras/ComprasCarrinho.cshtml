@@ -37,7 +37,10 @@
                 @Html.DisplayFor(modelItem => item.descPromo)
             </td>
             <td>
-                <img src="~/Images/img_xis.png" onclick='return delCarrinho(@item.prodID);' />
+                @if (item.prodID != 0)
+                {
+                    <img src="~/Images/img_xis.png" onclick='return delCarrinho(@item.prodID);' />
+                }
             </td>
         </tr>
     }

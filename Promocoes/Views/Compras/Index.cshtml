@@ -54,14 +54,21 @@
         var PDDID = "Qtd" + id;
         var PDDQ = $('#' + PDDID);
 
-        $.post('@Url.Action("CarrinhoAdd", "Compras")',
+        if (PDDQ.val() > 0)
         {
-            idProd: id,
-            qtdProd: PDDQ.val()
-        },
-        function (data, status, xhr) {
-            $("#listaCarrinho").html(data);
-        });
+            $.post('@Url.Action("CarrinhoAdd", "Compras")',
+            {
+                idProd: id,
+                qtdProd: PDDQ.val()
+            },
+            function (data, status, xhr) {
+                $("#listaCarrinho").html(data);
+            });
+        }
+        else
+        {
+            alert("Quantidade deve ser maior que 0");
+        }
     }
 
     function delCarrinho(id) {
