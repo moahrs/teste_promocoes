@@ -2,18 +2,40 @@
 
 <table class="table">
     <tr>
-        <th>Código</th>
-        <th>Descrição</th>
-        <th>Preço</th>
-        <th>Qtd</th>
+        <th>
+            @Html.DisplayNameFor(model => model.codProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.descProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.qtdProd)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.precoProd)
+        </th>    
+        <th>
+            @Html.DisplayNameFor(model => model.PromocaoID)
+        </th>
     </tr>
     @foreach (var item in Model)
     {
         <tr>
-            <td>@item.codProd</td>
-            <td>@item.descProd</td>
-            <td>@item.precoProd</td>
-            <td>@item.qtdProd</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.codProd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descProd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qtdProd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precoProd)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descPromo)
+            </td>
             <td>
                 <img src="~/Images/img_xis.png" onclick='return delCarrinho(@item.prodID);' />
             </td>

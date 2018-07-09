@@ -217,6 +217,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="DefinicaoTipos.cs" />
     <Compile Include="ViewModels\CheckoutViewModel.cs" />
     <Compile Include="ViewModels\ComprasCarrinhoViewModel.cs" />
     <Compile Include="ViewModels\ComprasViewModel.cs" />

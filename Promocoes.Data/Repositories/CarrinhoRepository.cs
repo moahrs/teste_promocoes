@@ -33,6 +33,7 @@ namespace Promocoes.Data.Repositories
                 meuCarAtu.prodID = produto.ProdutoID;
                 meuCarAtu.codProd = produto.Codigo;
                 meuCarAtu.descProd = produto.Descricao;
+                meuCarAtu.PromocaoID = produto.PromocaoID;
                 meuCarAtu.qtdProd = qtdProd;
                 meuCarAtu.precoProd = produtoRep.DevolveValorCalculado(produto.ProdutoID, qtdProd);
 

@@ -10,14 +10,7 @@ namespace Promocoes.MVC.Controllers
     public class ProdutoController : Controller
     {
         private readonly IProdutoAppService _produtoApp;
-        private SelectList ListaPromocoes = new SelectList(
-                                                new List<object>{
-                                                        new { value = 0 , text = "Nenhuma"  },
-                                                        new { value = 1 , text = "Pague 1 e Leve 2"  },
-                                                        new { value = 2 , text = "3 por 10 reais"  }
-                                                    },
-                                                    "value",
-                                                    "text");
+        private DefinicaoTipos tpDef = new DefinicaoTipos();
 
         public ProdutoController(IProdutoAppService produtoApp)
         {
@@ -28,6 +21,7 @@ namespace Promocoes.MVC.Controllers
         public ActionResult Index()
         {
             var produtoViewModel = Mapper.Map<IEnumerable<Produto>, IEnumerable<ProdutoViewModel>>(_produtoApp.GetAll());
+
             return View(produtoViewModel);
         }
 
@@ -36,7 +30,7 @@ namespace Promocoes.MVC.Controllers
         {
             var produto = _produtoApp.GetById(id);
             var produtoViewModel = Mapper.Map<Produto, ProdutoViewModel>(produto);
-            produtoViewModel.TipoListaPromocoes = ListaPromocoes;
+            produtoViewModel.TipoListaPromocoes = tpDef.ListaPromocoes;
 
             return View(produtoViewModel);
         }
@@ -45,7 +39,7 @@ namespace Promocoes.MVC.Controllers
         public ActionResult Create()
         {
             var produtoViewModel = new ProdutoViewModel();
-            produtoViewModel.TipoListaPromocoes = ListaPromocoes;
+            produtoViewModel.TipoListaPromocoes = tpDef.ListaPromocoes;
             return View(produtoViewModel);
         }
 
@@ -70,7 +64,7 @@ namespace Promocoes.MVC.Controllers
         {
             var produto = _produtoApp.GetById(id);
             var produtoViewModel = Mapper.Map<Produto, ProdutoViewModel>(produto);
-            produtoViewModel.TipoListaPromocoes = ListaPromocoes;
+            produtoViewModel.TipoListaPromocoes = tpDef.ListaPromocoes;
 
             return View(produtoViewModel);
         }
@@ -96,7 +90,7 @@ namespace Promocoes.MVC.Controllers
         {
             var produto = _produtoApp.GetById(id);
             var produtoViewModel = Mapper.Map<Produto, ProdutoViewModel>(produto);
-            produtoViewModel.TipoListaPromocoes = ListaPromocoes;
+            produtoViewModel.TipoListaPromocoes = tpDef.ListaPromocoes;
 
             return View(produtoViewModel);
         }

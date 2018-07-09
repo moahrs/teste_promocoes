@@ -2,6 +2,7 @@
 using Promocoes.Application.Interface;
 using Promocoes.Domain;
 using Promocoes.MVC.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 
@@ -11,18 +12,8 @@ namespace Promocoes.MVC.Controllers
     {
         private readonly IProdutoAppService _produtoApp;
         private readonly ICarrinhoAppService _carrinhoApp;
+        private DefinicaoTipos tpDef = new DefinicaoTipos();
 
-        public class meuCarrinho
-        {
-            public int prodID { get; set; }
-            public string codProd { get; set; }
-            public string descProd { get; set; }
-            public decimal precoProd { get; set; }
-            public int qtdProd { get; set; }
-        }
-
-        public static Dictionary<int, meuCarrinho> dictCarrinho = new Dictionary<int, meuCarrinho>();
-        
         public ComprasController(IProdutoAppService produtoApp, ICarrinhoAppService carrinhoApp)
         {
             _produtoApp = produtoApp;
@@ -35,38 +26,6 @@ namespace Promocoes.MVC.Controllers
             var comprasViewModel = Mapper.Map<IEnumerable<Produto>, IEnumerable<ComprasViewModel>>(_produtoApp.GetAll());
             _carrinhoApp.CriaCarrinho();
             return View(comprasViewModel);
-        }
-
-        public List<ComprasCarrinhoViewModel> MontaCarrinhoViewModel()
-        {
-            var carrinhoDict = _carrinhoApp.DevolveConteudo();
-            decimal totalCompras = 0;
-            List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
-
-            foreach (var item in carrinhoDict)
-            {
-                ComprasCarrinhoViewModel partialList = new ComprasCarrinhoViewModel();
-                partialList.prodID = item.Value.prodID;
-                partialList.codProd = item.Value.codProd;
-                partialList.descProd = item.Value.descProd;
-                partialList.qtdProd = item.Value.qtdProd.ToString();
-                partialList.precoProd = item.Value.precoProd;
-
-                totalCompras += partialList.precoProd;
-
-                carrinhoList.Add(partialList);
-            }
-
-            ComprasCarrinhoViewModel partialLista = new ComprasCarrinhoViewModel();
-            partialLista.prodID = 0;
-            partialLista.codProd = "";
-            partialLista.descProd = "";
-            partialLista.qtdProd = "Total";
-            partialLista.precoProd = totalCompras;
-
-            carrinhoList.Add(partialLista);
-
-            return carrinhoList;
         }
 
         public ActionResult CarrinhoAdd(int idProd, int qtdProd)
@@ -89,6 +48,41 @@ namespace Promocoes.MVC.Controllers
         {
             var checkoutView = new CheckoutViewModel();
             return PartialView(checkoutView);
+        }
+
+        public List<ComprasCarrinhoViewModel> MontaCarrinhoViewModel()
+        {
+            var carrinhoDict = _carrinhoApp.DevolveConteudo();
+            decimal totalCompras = 0;
+            List<ComprasCarrinhoViewModel> carrinhoList = new List<ComprasCarrinhoViewModel>();
+
+            foreach (var item in carrinhoDict)
+            {
+                ComprasCarrinhoViewModel partialList = new ComprasCarrinhoViewModel();
+                partialList.prodID = item.Value.prodID;
+                partialList.codProd = item.Value.codProd;
+                partialList.descProd = item.Value.descProd;
+                partialList.qtdProd = item.Value.qtdProd.ToString();
+                partialList.precoProd = item.Value.precoProd;
+                partialList.PromocaoID = item.Value.PromocaoID;
+                partialList.descPromo = tpDef.RetornarDescPromocao(item.Value.PromocaoID);
+
+                totalCompras += partialList.precoProd;
+
+                carrinhoList.Add(partialList);
+            }
+
+            ComprasCarrinhoViewModel partialLista = new ComprasCarrinhoViewModel();
+            partialLista.prodID = 0;
+            partialLista.codProd = "";
+            partialLista.descProd = "";
+            partialLista.qtdProd = "Total";
+            partialLista.precoProd = totalCompras;
+            partialLista.descPromo = "";
+
+            carrinhoList.Add(partialLista);
+
+            return carrinhoList;
         }
     }
 }

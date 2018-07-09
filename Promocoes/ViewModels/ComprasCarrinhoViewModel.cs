@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace Promocoes.MVC.ViewModels
 {
@@ -23,5 +24,7 @@ namespace Promocoes.MVC.ViewModels
 
         [DisplayName("Promoção")]
         public int PromocaoID { get; set; }
+
+        public string descPromo { get; set; }
     }
 }

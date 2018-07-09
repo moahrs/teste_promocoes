@@ -13,5 +13,6 @@ namespace Promocoes.Domain.Entities
         public string descProd { get; set; }
         public decimal precoProd { get; set; }
         public int qtdProd { get; set; }
+        public int PromocaoID { get; set; }
     }
 }
